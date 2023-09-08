@@ -1,7 +1,8 @@
-package com.sri.nasaimageoftheday
+package com.sri.nasaimageoftheday.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sri.nasaimageoftheday.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
