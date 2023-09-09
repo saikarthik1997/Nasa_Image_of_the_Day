@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.sri.nasaimageoftheday.R
 import com.sri.nasaimageoftheday.databinding.ImageItemLayoutBinding
 import com.sri.nasaimageoftheday.models.NasaImageItemData
 import com.sri.nasaimageoftheday.models.NasaImageResponseData
@@ -17,6 +18,7 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
             binding.imageItem = result
             binding.nasaImageView.load(result.url){
                 crossfade(600)
+                placeholder(R.drawable.baseline_image_24)
             }
             binding.executePendingBindings()
         }

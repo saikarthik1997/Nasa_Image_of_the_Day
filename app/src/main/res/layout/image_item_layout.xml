@@ -19,7 +19,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/row_cardView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,11 +63,13 @@
                 <TextView
                     android:id="@+id/description_textView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
-                    android:maxLines="3"
+                    android:maxLines="6"
+                    android:singleLine="false"
                     android:text="@{imageItem.explanation}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/title_textView"
                     app:layout_constraintStart_toStartOf="@+id/title_textView"
                     app:layout_constraintTop_toBottomOf="@+id/title_textView" />
