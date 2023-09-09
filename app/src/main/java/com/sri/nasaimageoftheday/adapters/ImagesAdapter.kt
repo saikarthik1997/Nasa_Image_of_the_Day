@@ -1,18 +1,18 @@
 package com.sri.nasaimageoftheday.adapters
 
-import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.gson.Gson
 import com.sri.nasaimageoftheday.R
 import com.sri.nasaimageoftheday.databinding.ImageItemLayoutBinding
 import com.sri.nasaimageoftheday.models.NasaImageItemData
 import com.sri.nasaimageoftheday.models.NasaImageResponseData
-import com.sri.nasaimageoftheday.utils.NetworkResult
+import com.sri.nasaimageoftheday.ui.DetailsActivity
+
 
 class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
     private var recipes = emptyList<NasaImageItemData>()
@@ -32,7 +32,11 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
                 binding.nasaImageView.setImageResource(R.drawable.ic_video)
                 binding.nasaImageView.scaleType=ImageView.ScaleType.FIT_CENTER
             }
-
+            binding.imageRowLayout.setOnClickListener {
+                val intent = Intent(it.context, DetailsActivity::class.java)
+                intent.putExtra("item_json", Gson().toJson(result));
+                it.context.startActivity(intent)
+            }
             binding.executePendingBindings()
         }
 
@@ -57,6 +61,13 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
 
     override fun getItemCount(): Int {
         return recipes.size
+    }
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     fun setData(newData: NasaImageResponseData) {

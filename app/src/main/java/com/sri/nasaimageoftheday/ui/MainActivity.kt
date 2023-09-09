@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var myBinding:ActivityMainBinding
-    lateinit var swipeContainer: SwipeRefreshLayout
+    private lateinit var swipeContainer: SwipeRefreshLayout
     private val mAdapter by lazy { ImagesAdapter() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +31,21 @@ class MainActivity : AppCompatActivity() {
         swipeContainer = myBinding.swipeContainer
         mainViewModel.fetchImages()
         mainViewModel.imagesResponse.observe(this) {
-            if(it is NetworkResult.Loading){
-                myBinding.recyclerview.showShimmer()
-            }else if (it is NetworkResult.Success) {
-                Logger.log("success")
-                myBinding.recyclerview.hideShimmer()
-                mAdapter.setData(it.data!!)
-            } else {
-                myBinding.recyclerview.hideShimmer()
-                Logger.log("failure")
+            when (it) {
+                is NetworkResult.Loading -> {
+                    myBinding.recyclerview.showShimmer()
+                }
+
+                is NetworkResult.Success -> {
+                    Logger.log("success")
+                    myBinding.recyclerview.hideShimmer()
+                    mAdapter.setData(it.data!!)
+                }
+
+                else -> {
+                    myBinding.recyclerview.hideShimmer()
+                    Logger.log("failure")
+                }
             }
         }
         swipeContainer.setOnRefreshListener {

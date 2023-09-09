@@ -20,4 +20,8 @@ data class NasaImageItemData(
     val title: String?,
     @SerializedName("url")
     val url: String?
-)
+) {
+    override fun toString(): String {
+        return title ?:"-"
+    }
+}
