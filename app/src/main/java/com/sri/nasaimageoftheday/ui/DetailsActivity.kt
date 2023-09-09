@@ -19,10 +19,13 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var myBinding: ActivityDetailsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         val json = intent.getStringExtra("item_json")
         val gson = Gson()
         val clickedItem: NasaImageItemData = gson.fromJson(json, NasaImageItemData::class.java)
         Logger.log("item is $clickedItem")
+
         myBinding = DataBindingUtil.setContentView(this, R.layout.activity_details)
         myBinding.itemData = clickedItem
         if (clickedItem.mediaType == "video") {
@@ -39,6 +42,8 @@ class DetailsActivity : AppCompatActivity() {
                 placeholder(R.drawable.baseline_image_24)
             }
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title=clickedItem.title
 
     }
 }
