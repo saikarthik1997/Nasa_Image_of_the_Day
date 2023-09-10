@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.sri.nasaimageoftheday.R
 import com.sri.nasaimageoftheday.databinding.ActivityDetailsBinding
 import com.sri.nasaimageoftheday.models.NasaImageItemData
+import com.sri.nasaimageoftheday.utils.DateUtils
 import com.sri.nasaimageoftheday.utils.Logger
 
 
@@ -42,7 +43,9 @@ class DetailsActivity : AppCompatActivity() {
                 placeholder(R.drawable.baseline_image_24)
             }
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        myBinding.dateTextView.text=DateUtils.formatDate(clickedItem.date!!)
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title=clickedItem.title
 
     }

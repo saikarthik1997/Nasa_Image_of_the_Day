@@ -18,5 +18,9 @@ class LocalDataSource @Inject constructor(
         imageDao.insertImage(imageEntity)
     }
 
+    suspend fun deleteAll(){
+        imageDao.deleteAll()
+    }
+
 
 }

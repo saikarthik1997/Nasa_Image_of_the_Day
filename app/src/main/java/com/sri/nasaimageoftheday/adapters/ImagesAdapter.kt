@@ -10,7 +10,6 @@ import com.google.gson.Gson
 import com.sri.nasaimageoftheday.R
 import com.sri.nasaimageoftheday.databinding.ImageItemLayoutBinding
 import com.sri.nasaimageoftheday.models.NasaImageItemData
-import com.sri.nasaimageoftheday.models.NasaImageResponseData
 import com.sri.nasaimageoftheday.ui.DetailsActivity
 
 
@@ -28,7 +27,7 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
                     placeholder(R.drawable.baseline_image_24)
                 }
             }else{
-                //set video image
+                //set video image and on click listener to open video link
                 binding.nasaImageView.setImageResource(R.drawable.ic_video)
                 binding.nasaImageView.scaleType=ImageView.ScaleType.FIT_CENTER
             }
@@ -70,7 +69,7 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
         return position
     }
 
-    fun setData(newData: NasaImageResponseData) {
+    fun setData(newData: ArrayList<NasaImageItemData>) {
         recipes = newData
         this.notifyDataSetChanged()
     }

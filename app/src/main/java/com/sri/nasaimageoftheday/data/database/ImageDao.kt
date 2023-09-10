@@ -15,4 +15,7 @@ interface ImageDao {
 
     @Query("SELECT * FROM images_table ")
     fun readImages(): Flow<List<ImageEntity>>
+
+    @Query("DELETE FROM images_table")
+    suspend fun deleteAll()
 }

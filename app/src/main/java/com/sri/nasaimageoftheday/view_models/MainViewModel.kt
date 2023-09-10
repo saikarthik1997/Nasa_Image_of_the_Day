@@ -35,8 +35,9 @@ class MainViewModel @Inject constructor(
             val response =   repository.remote.getImages(queries)
             Log.i("MyTag","response is ${response.body()}")
             if(response.isSuccessful){
+                clearLocalDb()
                 imagesResponse.value=NetworkResult.Success(response.body()!!)
-                    offlineCacheImages(response.body()!!)
+                offlineCacheImages(response.body()!!)
             }else{
                 imagesResponse.value=NetworkResult.Error("Error Occurred")
             }
@@ -58,6 +59,11 @@ class MainViewModel @Inject constructor(
                 repository.local.insertImage(imageEntity)
 
             }
+        }
+    }
+    private fun clearLocalDb(){
+        viewModelScope.launch(Dispatchers.IO) {
+           repository.local.deleteAll()
         }
     }
 }

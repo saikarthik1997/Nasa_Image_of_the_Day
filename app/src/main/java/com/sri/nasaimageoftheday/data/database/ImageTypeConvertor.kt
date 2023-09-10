@@ -11,23 +11,23 @@ class ImageTypeConvertor {
     var gson = Gson()
 
     @TypeConverter
-    fun foodRecipeToString(foodRecipe: NasaImageResponseData): String {
-        return gson.toJson(foodRecipe)
+    fun imageResponseToString(imageResponse: NasaImageResponseData): String {
+        return gson.toJson(imageResponse)
     }
 
     @TypeConverter
-    fun stringToFoodRecipe(data: String): NasaImageResponseData {
+    fun stringToImageResponse(data: String): NasaImageResponseData {
         val listType = object : TypeToken<NasaImageResponseData>() {}.type
         return gson.fromJson(data, listType)
     }
 
     @TypeConverter
-    fun resultToString(result: NasaImageItemData): String {
+    fun itemToString(result: NasaImageItemData): String {
         return gson.toJson(result)
     }
 
     @TypeConverter
-    fun stringToResult(data: String): NasaImageItemData {
+    fun stringToItem(data: String): NasaImageItemData {
         val listType = object : TypeToken<NasaImageItemData>() {}.type
         return gson.fromJson(data, listType)
     }
