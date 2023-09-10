@@ -72,4 +72,13 @@ dependencies {
     implementation 'com.todkars:shimmer-recyclerview:0.4.0'
     //swipe to refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // Room components
+    implementation "androidx.room:room-runtime:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+    androidTestImplementation "androidx.room:room-testing:2.5.2"
+
+    //live data
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
 }
