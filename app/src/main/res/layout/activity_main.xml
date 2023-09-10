@@ -15,9 +15,8 @@
            android:id="@+id/swipeContainer"
            android:layout_width="match_parent"
            android:layout_height="match_parent">
+
            <com.todkars.shimmer.ShimmerRecyclerView
-               app:shimmer_recycler_item_count="5"
-               app:shimmer_recycler_layout="@layout/shimmer_item_layout"
                android:id="@+id/recyclerview"
                android:layout_width="0dp"
                android:layout_height="0dp"
@@ -28,8 +27,33 @@
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintHorizontal_bias="0.5"
                app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent" />
+               app:layout_constraintTop_toTopOf="parent"
+               app:shimmer_recycler_item_count="5"
+               app:shimmer_recycler_layout="@layout/shimmer_item_layout"
+             />
+
+
        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <ImageView
+            android:src="@drawable/baseline_error_outline_40"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/errorImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Error" />
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/errorImageView"
+            android:id="@+id/errorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Error" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

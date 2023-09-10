@@ -3,6 +3,7 @@ package com.sri.nasaimageoftheday.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import com.sri.nasaimageoftheday.R
 import com.sri.nasaimageoftheday.adapters.ImagesAdapter
 import com.sri.nasaimageoftheday.databinding.ActivityMainBinding
 import com.sri.nasaimageoftheday.models.NasaImageItemData
+import com.sri.nasaimageoftheday.utils.Constants
 import com.sri.nasaimageoftheday.utils.Logger
 import com.sri.nasaimageoftheday.utils.NetworkResult
 import com.sri.nasaimageoftheday.utils.observeOnce
@@ -40,17 +42,20 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.imagesResponse.observe(this) {
             when (it) {
                 is NetworkResult.Loading -> {
-                    myBinding.recyclerview.showShimmer()
+                    hideErrorView()
+                    showShimmer()
                 }
 
                 is NetworkResult.Success -> {
                     Logger.log("success")
-                    myBinding.recyclerview.hideShimmer()
+                    hideShimmer()
+                    hideErrorView()
                     mAdapter.setData(it.data!!)
                 }
 
                 else -> {
-                    myBinding.recyclerview.hideShimmer()
+                    hideShimmer()
+                    showErrorView(it.message)
                     Logger.log("failure")
                 }
             }
@@ -81,13 +86,30 @@ class MainActivity : AppCompatActivity() {
                         dataList.add(it.imageItem)
                     }
                     mAdapter.setData(dataList)
-                    myBinding.recyclerview.hideShimmer()
+                    hideShimmer()
                 } else {
                     mainViewModel.fetchImages()
-
                 }
 
             }
         }
+    }
+
+    private fun showShimmer(){
+        myBinding.recyclerview.showShimmer()
+    }
+    private fun hideShimmer(){
+        myBinding.recyclerview.hideShimmer()
+    }
+    private fun showErrorView(errorText:String?){
+        myBinding.recyclerview.visibility=View.INVISIBLE
+        myBinding.errorImageView.visibility= View.VISIBLE
+        myBinding.errorTextView.visibility= View.VISIBLE
+        myBinding.errorTextView.text=errorText?:Constants.SOMETHING_WRONG
+    }
+    private fun hideErrorView(){
+        myBinding.recyclerview.visibility=View.VISIBLE
+        myBinding.errorImageView.visibility= View.INVISIBLE
+        myBinding.errorTextView.visibility= View.INVISIBLE
     }
 }
