@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import coil.load
@@ -32,7 +33,7 @@ class DetailsActivity : AppCompatActivity() {
         if (clickedItem.mediaType == "video") {
             Logger.log("video item url is ${clickedItem.url}")
             myBinding.mainImageView.setImageResource(R.drawable.ic_video)
-            myBinding.mainImageView.setPadding(0, 40, 0, 0)
+            myBinding.mainImageView.scaleType=ImageView.ScaleType.FIT_CENTER
             myBinding.mainImageView.setOnClickListener {
                 val youtubeAppIntent = Intent(Intent.ACTION_VIEW, Uri.parse("${clickedItem.url}"))
                 startActivity(youtubeAppIntent)
