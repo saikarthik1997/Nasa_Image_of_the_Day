@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
+object DatabaseModule { //provides database and dao instance
     @Singleton
     @Provides
     fun provideDatabase(
@@ -26,5 +26,4 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideDao(database: ImagesDatabase) = database.imagesDao()
-
 }

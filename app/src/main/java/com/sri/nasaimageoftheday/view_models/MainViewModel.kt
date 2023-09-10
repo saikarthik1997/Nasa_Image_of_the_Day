@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,6 +28,7 @@ class MainViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     var imagesResponse: MutableLiveData<NetworkResult<NasaImageResponseData>> = MutableLiveData()
 
+    //fetch images api call
     fun fetchImages() {
         imagesResponse.value = NetworkResult.Loading()
         val queries: HashMap<String, String> = HashMap()
@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
                         imagesResponse.value = NetworkResult.Error(response.message())
                     }
                 } else {
-                    imagesResponse.value = NetworkResult.Error(Constants.NO_INTENNET)
+                    imagesResponse.value = NetworkResult.Error(Constants.NO_INTERNET)
                 }
             } catch (e: Exception) {
                 imagesResponse.value = NetworkResult.Error(Constants.SOMETHING_WRONG)
@@ -58,7 +58,7 @@ class MainViewModel @Inject constructor(
 
     val readImagesFromDB: LiveData<List<ImageEntity>> = repository.local.readImages().asLiveData()
 
-
+    //for caching offline images
     private fun offlineCacheImages(response: NasaImageResponseData) {
         viewModelScope.launch(Dispatchers.IO) {
             response.forEach { item ->
@@ -68,13 +68,14 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-
+    //clears local db
     private fun clearLocalDb() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.deleteAll()
         }
     }
 
+   //checks for internet connection
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE

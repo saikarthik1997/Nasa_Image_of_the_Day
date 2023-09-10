@@ -1,5 +1,7 @@
 package com.sri.nasaimageoftheday.utils
 
+
+//for getting a network result that could success or failure
 sealed class NetworkResult<T>(
     val data: T? = null,
     val message: String? = null

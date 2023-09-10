@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object NetworkModule {  //provides retrofit instance
     @Singleton
     @Provides
     fun provideHttpClient() : OkHttpClient {
